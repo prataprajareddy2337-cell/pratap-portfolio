@@ -1,125 +1,125 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail, Moon, Sun } from "lucide-react";
 
 const ME = {
   name: "Pratap Raja Reddy Chirra",
-  tagline: "Data Analyst • Data Engineer",
-  blurb: "I build data pipelines and analytics on Python + AWS. Love clean systems, simple UIs, and real impact.",
+  tagline: "Data-driven solutions.",
   email: "prataprajareddy2337@gmail.com",
-  location: "San Antonio, TX, USA",
   socials: {
     github: "https://github.com/prataprajareddy2337-cell",
     linkedin: "https://www.linkedin.com/in/prataprajareddychirra/",
   },
-  skills: ["Python","SQL","AWS (S3, RDS, Lambda)","Airflow","Apache Spark","Power BI","Pandas / NumPy"],
+  skills: ["Python","SQL","AWS","Airflow","Spark","Power BI","Pandas","NumPy"],
 };
 
-const PROJECTS = [
-  {
-    title: "COVID-19 Data Pipeline",
-    blurb: "End-to-end ETL: ingestion → cleaning → aggregation → Power BI dashboards.",
-    stack: ["Python","AWS S3/RDS","SQL","Power BI"],
-    code: "https://github.com/prataprajareddy2337-cell/covid-data-pipeline",
-  },
-  {
-    title: "Inventory Classification & Forecast Optimization",
-    blurb: "ABC analysis on 68k+ SKUs; −22% aging, +18% stocking efficiency; demand forecasting.",
-    stack: ["Python","SQL","AWS"],
-    code: "#",
-  },
-  {
-    title: "Cash Flow & Revenue Pipeline Optimization",
-    blurb: "Automated batches with retries/alerts; ~70% faster SQL; reports 12h → <2h.",
-    stack: ["Python","Airflow"],
-    code: "#",
-  },
-];
+function ThemeToggle() {
+  const [mounted, setMounted] = React.useState(false);
+  const [isDark, setIsDark] = React.useState(false);
+  React.useEffect(() => {
+    setMounted(true);
+    const stored = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    const preferDark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    setIsDark(preferDark);
+    document.documentElement.classList.toggle("dark", preferDark);
+  }, []);
+  if (!mounted) return null;
+  function toggle() {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+  }
+  return (
+    <button onClick={toggle}
+      className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm bg-white/70 dark:bg-neutral-900/60 border-neutral-200 dark:border-neutral-800 backdrop-blur"
+      aria-label="Toggle dark mode">
+      {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      {isDark ? "Light" : "Dark"}
+    </button>
+  );
+}
 
 export default function Page() {
   return (
     <>
-      {/* Header */}
-      <header className="sticky top-0 z-10 backdrop-blur bg-white/70 border-b">
-        <div className="container h-14 flex items-center justify-between">
-          <a href="#home" className="no-underline font-semibold">Pratap Reddy — Data Portfolio</a>
-          <nav className="hidden md:flex gap-6 text-sm">
-            <a href="#projects">Projects</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-          </nav>
-        </div>
-      </header>
+      {/* HERO */}
+      <section id="home" className="relative min-h-[100svh] w-full">
+        <img src="/hero.jpg" alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-black/55"></div>
 
-      {/* Hero */}
-      <section id="home" className="section">
-        <div className="container">
-          <motion.p initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className="text-sm text-neutral-500">
-            {ME.location}
-          </motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}
-            className="mt-3 text-4xl md:text-6xl font-bold tracking-tight">
-            {ME.name}
+        <div className="relative container pt-28 md:pt-36 pb-24 text-white">
+          <div className="flex items-start justify-between">
+            <a href="#home" className="font-extrabold text-lg no-underline">pratap-portfolio</a>
+            <ThemeToggle />
+          </div>
+
+          <motion.h1 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+            className="mt-10 text-5xl md:text-7xl font-black leading-[0.95] tracking-tight">
+            <span className="block">Hi, I&apos;m Pratap</span>
+            <span className="block">Reddy Chirra</span>
           </motion.h1>
-          <p className="mt-4 text-lg text-neutral-700">{ME.tagline}</p>
-          <p className="mt-3 max-w-2xl text-neutral-700">{ME.blurb}</p>
 
-          <div className="mt-6 flex items-center gap-4">
-            <a className="no-underline" href={`mailto:${ME.email}`}><span className="inline-flex items-center gap-2"><Mail className="h-4 w-4" /> Email</span></a>
-            <a className="no-underline" href={ME.socials.linkedin} target="_blank"><span className="inline-flex items-center gap-2"><Linkedin className="h-4 w-4" /> LinkedIn</span></a>
-            <a className="no-underline" href={ME.socials.github} target="_blank"><span className="inline-flex items-center gap-2"><Github className="h-4 w-4" /> GitHub</span></a>
+          <p className="mt-6 text-xl md:text-2xl text-neutral-200">{ME.tagline}</p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <a href={`mailto:${ME.email}`} className="rounded-full bg-white/90 text-neutral-900 px-5 py-3 font-semibold no-underline hover:bg-white">Get In Touch</a>
+            <a href={ME.socials.linkedin} target="_blank" className="rounded-full border border-white/40 px-5 py-3 font-semibold no-underline hover:bg-white/10">LinkedIn</a>
+            <a href={ME.socials.github} target="_blank" className="rounded-full border border-white/40 px-5 py-3 font-semibold no-underline hover:bg-white/10">GitHub</a>
           </div>
 
-          <div className="mt-8 flex flex-wrap gap-2">
-            {ME.skills.map((s) => (<span key={s} className="badge">{s}</span>))}
+          <div className="mt-16 flex items-center gap-2 text-sm text-neutral-300">
+            <span className="inline-block h-6 w-3 rounded-full border border-neutral-300/70 relative">
+              <span className="absolute left-1/2 top-1.5 -translate-x-1/2 h-1.5 w-1.5 rounded-full bg-neutral-300 animate-bounce"></span>
+            </span>
+            <span>Scroll Down</span>
           </div>
         </div>
-      </section>
 
-      {/* Projects */}
-      <section id="projects" className="section">
-        <div className="container">
-          <h2 className="h2">Projects</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {PROJECTS.map((p) => (
-              <a key={p.title} href={p.code} target="_blank" className="card no-underline">
-                <h3 className="text-xl font-semibold">{p.title}</h3>
-                <p className="mt-2 text-neutral-700">{p.blurb}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {p.stack.map((t) => (<span key={t} className="badge">{t}</span>))}
-                </div>
-              </a>
+        {/* bottom rounded nav */}
+        <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 bg-white/70 dark:bg-neutral-900/60 border border-neutral-200 dark:border-neutral-800 backdrop-blur rounded-full px-3 py-2 shadow-lg">
+          <ul className="flex gap-2 text-sm">
+            {[
+              ["Home", "#home"],
+              ["About", "#about"],
+              ["Experience", "#experience"],
+              ["Projects", "#projects"],
+              ["Honors", "#honors"],
+              ["Skills", "#skills"],
+              ["Contact", "#contact"],
+            ].map(([label, href]) => (
+              <li key={href}>
+                <a href={href} className="px-3 py-2 rounded-full no-underline hover:bg-black/5 dark:hover:bg-white/10">
+                  {label}
+                </a>
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+        </nav>
       </section>
 
-      {/* About */}
-      <section id="about" className="section">
-        <div className="container">
-          <h2 className="h2">About</h2>
-          <p className="text-neutral-700 max-w-3xl">
-            I design & ship data systems end-to-end: ingestion, modeling, and analytics.
-            Recently exploring better orchestration and cost-aware pipelines on AWS with Airflow.
-          </p>
+      {/* simple sections */}
+      <section id="about" className="container py-20"><h2 className="text-3xl md:text-4xl font-bold mb-4">About</h2><p className="max-w-3xl text-neutral-700 dark:text-neutral-300">I build data pipelines and analytics on Python + AWS. I like clean systems, simple UIs, and real impact.</p></section>
+      <section id="experience" className="container py-20"><h2 className="text-3xl md:text-4xl font-bold mb-4">Experience</h2><p className="text-neutral-600 dark:text-neutral-300">Add your roles here…</p></section>
+      <section id="projects" className="container py-20"><h2 className="text-3xl md:text-4xl font-bold mb-8">Projects</h2>
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            { title:"COVID-19 Data Pipeline", blurb:"End-to-end ETL: ingestion → cleaning → aggregation → Power BI dashboards.", link:"https://github.com/prataprajareddy2337-cell/covid-data-pipeline", tags:["Python","AWS","SQL","Power BI"] },
+            { title:"Inventory Classification & Forecast Optimization", blurb:"ABC analysis on 68k+ SKUs; −22% aging, +18% stocking efficiency; demand forecasting.", link:"#", tags:["Python","SQL","AWS"] },
+          ].map(p => (
+            <a key={p.title} href={p.link} target="_blank" className="block rounded-2xl border border-neutral-200 dark:border-neutral-800 p-5 no-underline hover:shadow-sm">
+              <h3 className="text-xl font-semibold">{p.title}</h3>
+              <p className="mt-2 text-neutral-700 dark:text-neutral-300">{p.blurb}</p>
+              <div className="mt-3 flex flex-wrap gap-2">{p.tags.map(t => <span key={t} className="rounded-full border px-3 py-1 text-xs border-neutral-300 dark:border-neutral-700">{t}</span>)}</div>
+            </a>
+          ))}
         </div>
       </section>
-
-      {/* Contact */}
-      <section id="contact" className="section">
-        <div className="container">
-          <h2 className="h2">Contact</h2>
-        <p className="text-neutral-700">Email me at <a href={`mailto:${ME.email}`}>{ME.email}</a>.</p>
-        </div>
-      </section>
-
-      <footer className="border-t">
-        <div className="container h-20 flex items-center justify-between text-sm text-neutral-500">
-          <span>© {new Date().getFullYear()} {ME.name}</span>
-          <span>Built with Next.js & Tailwind</span>
-        </div>
-      </footer>
+      <section id="honors" className="container py-20"><h2 className="text-3xl md:text-4xl font-bold mb-4">Honors</h2><p className="text-neutral-600 dark:text-neutral-300">Add awards here…</p></section>
+      <section id="skills" className="container py-20"><h2 className="text-3xl md:text-4xl font-bold mb-6">Skills</h2><div className="flex flex-wrap gap-2">{ME.skills.map(s => <span key={s} className="rounded-full border px-3 py-1 text-xs border-neutral-300 dark:border-neutral-700">{s}</span>)}</div></section>
+      <section id="contact" className="container py-20"><h2 className="text-3xl md:text-4xl font-bold mb-4">Contact</h2><div className="flex items-center gap-4"><a href={`mailto:${ME.email}`} className="inline-flex items-center gap-2 no-underline"><Mail className="h-5 w-5" /> {ME.email}</a><a href={ME.socials.linkedin} className="inline-flex items-center gap-2 no-underline" target="_blank"><Linkedin className="h-5 w-5" /> LinkedIn</a><a href={ME.socials.github} className="inline-flex items-center gap-2 no-underline" target="_blank"><Github className="h-5 w-5" /> GitHub</a></div></section>
+      <footer className="border-t"><div className="container h-20 flex items-center justify-between text-sm text-neutral-500 dark:text-neutral-400"><span>© {new Date().getFullYear()} {ME.name}</span><span>Built with Next.js & Tailwind</span></div></footer>
     </>
   );
 }
