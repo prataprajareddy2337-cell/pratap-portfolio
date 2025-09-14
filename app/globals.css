@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* Smooth scrolling when you click nav links */
+html, body { scroll-behavior: smooth; }
+
+/* Helpers to get that clean, centered look */
+.container { @apply max-w-5xl mx-auto px-4; }
+.section { @apply py-20 md:py-28; }
+.h2 { @apply text-3xl md:text-4xl font-bold tracking-tight mb-8; }
+
+/* Underlines that feel subtle */
+a { @apply underline decoration-neutral-300 underline-offset-4 hover:decoration-neutral-500; }
+
+/* Simple card + badge styles */
+.card { @apply border border-neutral-200 rounded-2xl p-5 hover:shadow-sm transition; }
+.badge { @apply rounded-full border px-3 py-1 text-xs md:text-sm text-neutral-700 border-neutral-300; }
