@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pratap Reddy — Data Portfolio",
-  description: "Portfolio of Pratap Raja Reddy Chirra — Data Analyst & Data Engineer.",
+  description:
+    "Portfolio of Pratap Raja Reddy Chirra — Data Analyst & Data Engineer.",
   openGraph: {
     title: "Pratap Reddy — Data Portfolio",
     description: "Data-driven solutions in Python, AWS, and analytics.",
@@ -30,3 +31,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+

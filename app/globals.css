@@ -2,12 +2,7 @@
 html, body { scroll-behavior: smooth; }
 .container { @apply max-w-6xl mx-auto px-4; }
 
-
-/* Smooth scrolling when you click nav links */
-html, body { scroll-behavior: smooth; }
-
 /* Helpers to get that clean, centered look */
-.container { @apply max-w-5xl mx-auto px-4; }
 .section { @apply py-20 md:py-28; }
 .h2 { @apply text-3xl md:text-4xl font-bold tracking-tight mb-8; }
 
