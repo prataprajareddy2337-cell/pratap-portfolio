@@ -9,24 +9,29 @@ export default function VantaBackground() {
   React.useEffect(() => {
     let cancelled = false;
 
+    // 🔧 IMPORTANT: expose THREE on window for Vanta in production
+    (globalThis as any).THREE = THREE;
+
     (async () => {
-      // Load the Vanta library only in the browser
-      const VANTA = (await import("vanta/dist/vanta.net.min")).default;
+      try {
+        const { default: NET } = await import("vanta/dist/vanta.net.min");
+        if (cancelled || !hostRef.current || effectRef.current) return;
 
-      if (!hostRef.current || cancelled || effectRef.current) return;
-
-      effectRef.current = VANTA({
-        el: hostRef.current,
-        THREE,
-        backgroundAlpha: 0, // keep transparent, we add our own overlay
-        color: 0xffffff,
-        points: 12.0,
-        maxDistance: 18.0,
-        spacing: 16.0,
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-      });
+        effectRef.current = NET({
+          el: hostRef.current,
+          THREE,
+          backgroundAlpha: 0,  // keep transparent; we add our own dark overlay
+          color: 0xffffff,
+          points: 12.0,
+          maxDistance: 18.0,
+          spacing: 16.0,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+        });
+      } catch (err) {
+        console.error("Vanta init failed:", err);
+      }
     })();
 
     return () => {
@@ -38,5 +43,5 @@ export default function VantaBackground() {
     };
   }, []);
 
-  return <div ref={hostRef} className="absolute inset-0 -z-10 pointer-events-none" />;
+  return <div ref={hostRef} className="absolute inset-0 -z-10 pointer-events-none" aria-hidden="true" />;
 }
